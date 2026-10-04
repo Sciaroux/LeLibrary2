@@ -12,6 +12,18 @@ import { FormsModule } from '@angular/forms';
 export class LoginPage {
   usersService = inject(UsersService);
   router = inject(Router);
+  Check() {
+    this.message='';
+    const result = this.usersService.login(this.loginData.username, this.loginData.password);
+    if(result){
+      this.router.navigateByUrl('panel');
+    }
+    else{
+      this.message='Invalid username/password';
+    }
+  }
+
+  message='';
   loginData: LoginModel = {
     RememberMe: false,
     username: '',
