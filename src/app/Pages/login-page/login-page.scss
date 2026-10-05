@@ -1,0 +1,16 @@
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    background-color: rgb(230, 230, 230);
+    padding: 1em;
+    border: 1px, solid, darkgray;
+    border-radius: 0.5em;
+}
