@@ -1,10 +1,11 @@
-import { Component, computed, inject, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, model, signal, WritableSignal } from '@angular/core';
 import { UsersService } from '../Services/users-service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { form, FormField } from '@angular/forms/signals';
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule, FormField],
   selector: 'app-login-page',
   styleUrl: './login-page.scss',
   templateUrl: './login-page.html',
@@ -12,9 +13,10 @@ import { FormsModule } from '@angular/forms';
 export class LoginPage {
   usersService = inject(UsersService);
   router = inject(Router);
-  Check() {
+  Check(event: any) {
+    event.PreventDefault();
     this.message = '';
-    const result = this.usersService.login(this.loginData().username(), this.loginData().password());
+    const result = this.usersService.login(this.loginData().username, this.loginData().password);
     if (result) {
       this.router.navigateByUrl('panel');
     }
@@ -24,15 +26,22 @@ export class LoginPage {
   }
 
   message = '';
-  loginData: WritableSignal<LoginModel> = signal({
+  loginData=signal<LoginModel>({
     RememberMe: false,
-    username: signal(''),
-    password: signal('')
+    username: '',
+    password: ''
+  });
+  loginForm = form(this.loginData, {
+    submission: {
+      action: async () => {
+        console.log('now');
+      }
+    }
   });
   isValid = computed(() => this.loginData().username() != '' && this.loginData().password() != '');
 }
 export interface LoginModel {
-  username: WritableSignal<string>;
-  password: WritableSignal<string>;
+  username: string;
+  password: string;
   RememberMe: boolean;
 }

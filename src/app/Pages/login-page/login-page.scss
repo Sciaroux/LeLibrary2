@@ -5,12 +5,39 @@
     min-height: 100vh;
 }
 
-form {
+form, .form {
     display: flex;
     flex-direction: column;
     width: 30%;
     background-color: rgb(230, 230, 230);
     padding: 1em;
-    border: 1px, solid, darkgray;
     border-radius: 0.5em;
+    border: 1px, solid, darkgray;
+    // Border not working??
+    gap: 0.4em;
+    input{
+        padding: 0.3em;
+        margin: 0.3em;
+    }
+    button{
+        background-color: darkblue;
+        color: white;
+        padding: 0.4em;
+        border: none;
+        outline: none;
+        border-radius: 0.2em;
+        cursor: pointer;
+    }
+    button[disabled]{
+        background-color: gray;
+    }
+    .error{
+        background-color: rgb(238 174 174);
+        border: 1px solid darkred;
+        border-radius: 0.2em;
+        padding: 0.5em;
+        text-align: center;
+        color: darkred;
+
+    }
 }

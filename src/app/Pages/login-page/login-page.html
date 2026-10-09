@@ -1,13 +1,20 @@
-<form>
-    <input name="username" [(ngModel)]="loginData().username" type="text" placeholder="Username">
+<div class="form">
+    <input [formField]="loginForm.username" type="text" placeholder="Username">
+    @if (loginData().username()=='') {
     <span>Username is required</span>
-    <input name="password" [(ngModel)]="loginData().password" type="password" placeholder="Password">
+    }
+    <input [formField]="loginForm.password" type="password" placeholder="Password">
+    @if (loginData().password()=='') {
     <span>Password is required</span>
-    <input name="RememberMe"  type="checkbox" [(ngModel)]="loginData().RememberMe">
-    <button [disabled]="!isValid()" (click)="Check()">Login</button>
-</form>
-@if(message!=''){
+    }
     <div>
+        <input id="RememberMe" [formField]="loginForm.RememberMe" type="checkbox">
+        <label for="RememberMe">Remember me</label>
+    </div>
+    <button (click)="Check()">Login</button>
+    @if(message!=''){
+    <div class="error">
         {{message}}
     </div>
-} 
+    }
+</div>
