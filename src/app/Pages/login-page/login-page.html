@@ -1,20 +1,24 @@
-<div class="form">
+<form [formRoot]="loginForm">
     <input [formField]="loginForm.username" type="text" placeholder="Username">
-    @if (loginData().username()=='') {
-    <span>Username is required</span>
+    @if (loginForm.username().dirty() && loginForm.username().invalid()){
+        @for (item of loginForm.username().errors(); track $index) {
+        <span>{{item.message}}</span>
+    }
     }
     <input [formField]="loginForm.password" type="password" placeholder="Password">
-    @if (loginData().password()=='') {
-    <span>Password is required</span>
+    @if (loginForm.password().dirty() && loginForm.password().invalid()){
+        @for (item of loginForm.password().errors(); track $index) {
+        <span>{{item.message}}</span>
+    }
     }
     <div>
         <input id="RememberMe" [formField]="loginForm.RememberMe" type="checkbox">
         <label for="RememberMe">Remember me</label>
     </div>
-    <button (click)="Check()">Login</button>
+    <button [disabled]="loginForm().invalid()" (click)="Check()">Login</button>
     @if(message!=''){
     <div class="error">
         {{message}}
     </div>
     }
-</div>
+</form>

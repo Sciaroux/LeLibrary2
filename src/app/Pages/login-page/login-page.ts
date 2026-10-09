@@ -2,10 +2,10 @@ import { Component, computed, inject, model, signal, WritableSignal } from '@ang
 import { UsersService } from '../Services/users-service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { form, FormField } from '@angular/forms/signals';
+import { form, FormField, FormRoot, minLength, required } from '@angular/forms/signals';
 
 @Component({
-  imports: [FormsModule, FormField],
+  imports: [FormsModule, FormField, FormRoot],
   selector: 'app-login-page',
   styleUrl: './login-page.scss',
   templateUrl: './login-page.html',
@@ -24,21 +24,17 @@ export class LoginPage {
       this.message = 'Invalid username/password';
     }
   }
-
   message = '';
   loginData=signal<LoginModel>({
     RememberMe: false,
     username: '',
     password: ''
   });
-  loginForm = form(this.loginData, {
-    submission: {
-      action: async () => {
-        console.log('now');
-      }
-    }
+  loginForm = form(this.loginData,(data)=>{
+    required(data.username,{message:'Username is required'});
+    minLength(data.username,3,{message:'Username must be at least 3 letters'})
+    required(data.password,{message:'Password is required'});
   });
-  isValid = computed(() => this.loginData().username() != '' && this.loginData().password() != '');
 }
 export interface LoginModel {
   username: string;
