@@ -1,14 +1,14 @@
 <form [formRoot]="loginForm">
     <input [formField]="loginForm.username" type="text" placeholder="Username">
     @if (loginForm.username().dirty() && loginForm.username().invalid()){
-        @for (item of loginForm.username().errors(); track $index) {
-        <span>{{item.message}}</span>
+    @for (item of loginForm.username().errors(); track $index) {
+    <span class="hint">{{item.message}}</span>
     }
     }
     <input [formField]="loginForm.password" type="password" placeholder="Password">
     @if (loginForm.password().dirty() && loginForm.password().invalid()){
-        @for (item of loginForm.password().errors(); track $index) {
-        <span>{{item.message}}</span>
+    @for (item of loginForm.password().errors(); track $index) {
+    <span class="hint">{{item.message}}</span>
     }
     }
     <div>
@@ -21,4 +21,9 @@
         {{message}}
     </div>
     }
+    <ul>
+        @for (item of loginForm().errorSummary(); track $index) {
+        <li>{{item.message}}</li>
+        }
+    </ul>
 </form>

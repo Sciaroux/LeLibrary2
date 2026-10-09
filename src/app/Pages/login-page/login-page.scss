@@ -5,7 +5,8 @@
     min-height: 100vh;
 }
 
-form, .form {
+form,
+.form {
     display: flex;
     flex-direction: column;
     width: 30%;
@@ -15,11 +16,13 @@ form, .form {
     border: 1px, solid, darkgray;
     // Border not working??
     gap: 0.4em;
-    input{
+
+    input {
         padding: 0.3em;
         margin: 0.3em;
     }
-    button{
+
+    button {
         background-color: darkblue;
         color: white;
         padding: 0.4em;
@@ -28,16 +31,20 @@ form, .form {
         border-radius: 0.2em;
         cursor: pointer;
     }
-    button[disabled]{
+
+    button[disabled] {
         background-color: gray;
     }
-    .error{
+
+    .error {
         background-color: rgb(238 174 174);
         border: 1px solid darkred;
         border-radius: 0.2em;
         padding: 0.5em;
         text-align: center;
         color: darkred;
-
+    }
+    .hint{
+        color: red;
     }
 }
